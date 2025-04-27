@@ -1,5 +1,5 @@
 function hyperthermia_treatment_gui()
-    % إنشاء نافذة الواجهة الرئيسية
+    % نافذة الواجهة الرئيسي
     fig = figure('Name', 'نظام محاكاة العلاج الحراري', ...
                 'Position', [100, 100, 1000, 700], ...
                 'NumberTitle', 'off', ...
@@ -7,9 +7,9 @@ function hyperthermia_treatment_gui()
                 'MenuBar', 'none', ...
                 'ToolBar', 'none');
 
-    % عنوان الواجهة مع تحسينات
+    % عنوان الواجهة 
     title_panel = uipanel(fig, 'Title', '', ...
-                         'Position', [0.1 0.93 0.8 0.06], ...  % رفع العنوان لأعلى
+                         'Position', [0.1 0.93 0.8 0.06], ...  
                          'BackgroundColor', [0.4 0.6 0.8], ...
                          'BorderType', 'none');
 
@@ -22,15 +22,14 @@ function hyperthermia_treatment_gui()
               'BackgroundColor', [0.4 0.6 0.8], ...
               'HorizontalAlignment', 'center');
 
-    % لوحة التحكم بالمعطيات مع تحسينات التصميم
+    % لوحة التحكم بالمعطيات
     panel = uipanel(fig, 'Title', 'معطيات النموذج', ...
-                     'Position', [0.03, 0.45, 0.35, 0.45], ...  % رفع اللوحة لأعلى
+                     'Position', [0.03, 0.45, 0.35, 0.45], ...  
                      'BackgroundColor', [0.92 0.94 0.96], ...
                      'ForegroundColor', [0.2 0.2 0.5], ...
                      'FontWeight', 'bold', ...
                      'FontSize', 12);
 
-    % ألوان متناسقة للواجهة
     bg_color = [0.92 0.94 0.96];
     text_color = [0.2 0.2 0.5];
     edit_bg = [1 1 1];
@@ -40,7 +39,7 @@ function hyperthermia_treatment_gui()
     start_y = 350;
     delta_y = 30;
 
-    % معلمات النسيج مع تحسينات
+    % معلمات النسيج
     uicontrol(panel, 'Style', 'text', ...
               'String', 'خصائص النسيج:', ...
               'Position', [10, start_y, 150, 25], ...
@@ -95,7 +94,7 @@ function hyperthermia_treatment_gui()
                          'FontSize', 10, ...
                          'BackgroundColor', edit_bg);
 
-    % معلمات الورم مع تحسينات
+    % معلمات الورم 
     uicontrol(panel, 'Style', 'text', ...
               'String', 'خصائص الورم:', ...
               'Position', [10, start_y-4*delta_y, 150, 25], ...
@@ -141,7 +140,7 @@ function hyperthermia_treatment_gui()
                                   'FontSize', 10, ...
                                   'BackgroundColor', edit_bg);
 
-    % معلمات العلاج مع تحسينات
+    % معلمات العلاج
     uicontrol(panel, 'Style', 'text', ...
               'String', 'معلمات العلاج:', ...
               'Position', [10, start_y-7*delta_y, 150, 25], ...
@@ -181,35 +180,34 @@ function hyperthermia_treatment_gui()
                                     'FontSize', 10, ...
                                     'BackgroundColor', edit_bg);
 
-    % زر المحاكاة مع تحسينات
+    % زر المحاكاة 
     simulate_btn = uicontrol(fig, 'Style', 'pushbutton', ...
                              'String', 'تشغيل المحاكاة', ...
-                             'Position', [100, 40, 150, 40], ...  % رفع الزر لأعلى
+                             'Position', [100, 40, 150, 40], ...
                              'FontSize', 12, ...
                              'FontWeight', 'bold', ...
                              'ForegroundColor', [1 1 1], ...
                              'BackgroundColor', [0.2 0.6 0.3], ...
                              'Callback', @run_simulation);
 
- % محور للرسم مع تحسينات
+ % محور للرسم 
     ax = axes('Parent', fig, 'Position', [0.4, 0.15, 0.55, 0.7], ...
               'FontName', 'Arial', ...  % يمكن تغييرها لخط يدعم العربية مثل 'Traditional Arabic'
               'Box', 'on', ...
               'XGrid', 'on', ...
               'YGrid', 'on');
-
-    % تعيين إعدادات النص للغة العربية
-    set(ax, 'DefaultTextFontName', 'Arial', ...  % أو أي خط آخر يدعم العربية
+              
+    set(ax, 'DefaultTextFontName', 'Arial', ... 
             'DefaultTextFontSize', 10, ...
             'DefaultTextFontWeight', 'normal', ...
-            'DefaultTextInterpreter', 'none');  % تعطيل مفسر النص لتجنب مشاكل العرض
+            'DefaultTextInterpreter', 'none'); 
 
     title(ax, 'توزيع درجة الحرارة في النسيج', 'FontSize', 12, 'FontWeight', 'bold');
     xlabel(ax, 'المسافة الأفقية (cm)', 'FontSize', 10);
     ylabel(ax, 'المسافة العمودية (cm)', 'FontSize', 10);
     colormap(ax, 'jet');
 
-    % دالة المحاكاة مع تصحيح الخطأ النهائي
+    % دالة المحاكاة 
     function run_simulation(~, ~)
         try
             % قراءة المعطيات من الواجهة
@@ -226,8 +224,7 @@ function hyperthermia_treatment_gui()
             Lx = 10; Ly = 10;
             Nx = 50; Ny = 50;
             dx = Lx/(Nx-1); dy = Ly/(Ny-1);
-
-            % إنشاء meshgrid بشكل صحيح
+            
             x_vec = linspace(0, Lx, Nx);
             y_vec = linspace(0, Ly, Ny);
             [X, Y] = meshgrid(x_vec, y_vec);
@@ -249,13 +246,10 @@ function hyperthermia_treatment_gui()
                 d2Tdy2 = (T(3:end,2:end-1) - 2*T(2:end-1,2:end-1) + T(1:end-2,2:end-1));
                 d2Tdx2 = (T(2:end-1,3:end) - 2*T(2:end-1,2:end-1) + T(2:end-1,1:end-2));
 
-                % تحديث درجة الحرارة
                 T(2:end-1,2:end-1) = T(2:end-1,2:end-1) + alpha*dt*(d2Tdy2/dy^2 + d2Tdx2/dx^2);
 
-                % إضافة تأثير المصدر الحراري
                 T(tumor_mask) = T(tumor_mask) + dt * Q / (rho * cp);
 
-                % شروط حدية
                 T(1,:) = T(2,:);
                 T(end,:) = T(end-1,:);
                 T(:,1) = T(:,2);
@@ -269,14 +263,12 @@ function hyperthermia_treatment_gui()
             title(ax, sprintf('توزيع درجة الحرارة بعد %d دقيقة', treatment_time/60));
             hold(ax, 'on');
 
-            % رسم حدود الورم بشكل صحيح
-            contour_levels = [tumor_radius, tumor_radius]; % تحديد مستويات الكنتور
+            contour_levels = [tumor_radius, tumor_radius]; 
             contour(ax, X, Y, sqrt((X-tumor_x).^2 + (Y-tumor_y).^2), contour_levels, ...
                    'r', 'LineWidth', 1.5);
 
             hold(ax, 'off');
 
-            % إظهار رسالة نجاح
             msgbox('تمت المحاكاة بنجاح!', 'نجاح', 'help');
 
         catch err
